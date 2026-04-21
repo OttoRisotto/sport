@@ -17,7 +17,8 @@ class myHttpClient() {
 
     fun get(url:String="http://localhost:8080/"){
         val response = this.client.send(this.req.get(), HttpResponse.BodyHandlers.ofString())
-        println(response.body())
+        println("Response: ${response}")
+        println("Body: ${response.body()}")
     }
 }
 
