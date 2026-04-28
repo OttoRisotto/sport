@@ -7,18 +7,21 @@ import java.net.http.HttpResponse
 
 fun main(){
     val client: myHttpClient = myHttpClient()
-    client.get();
-}
 
+    val url: String = "http://localhost:8080/"
+    client.get(url);
+
+}
 
 class myHttpClient() {
     private val client = HttpClient.newBuilder().build()
     private val req = myRequest();
 
-    fun get(url:String="http://localhost:8080/"){
+    fun get(url:String){
+        println("\nGet-Anfrage an $url startet\n")
         val response = this.client.send(this.req.get(), HttpResponse.BodyHandlers.ofString())
         println("Response: ${response}")
-        println("Body: ${response.body()}")
+        println("Response-Body: ${response.body()}")
     }
 }
 
