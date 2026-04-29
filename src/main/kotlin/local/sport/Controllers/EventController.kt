@@ -23,7 +23,7 @@ class EventController {
         return "Events: ${events.joinToString(",")}"
     }
 
-    @GetMapping("/event/{id}")
+    @GetMapping("/events/{id}")
     @ResponseBody
     fun getEvent(@PathVariable("id") id: String): String{
         for (event in events){
@@ -34,7 +34,7 @@ class EventController {
         throw Exception("Fehler: Event mit id: $id existiert nicht")
     }
 
-    @PostMapping("/event")
+    @PostMapping("/events")
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
     fun addEvent(name: String /*Query Parameter: ?name=Jonas*/ ){
@@ -43,7 +43,7 @@ class EventController {
         events.add(event)
     }
 
-    @PutMapping("/event/{id}")
+    @PutMapping("/events/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun updateEventByID(@PathVariable("id") id: String, name: String){
         for(event in events){
@@ -52,7 +52,7 @@ class EventController {
             }
         }
     }
-    @DeleteMapping("/event/{id}")
+    @DeleteMapping("/events/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun deleteEvent(@PathVariable("id") id:String){
         for (event in events){
