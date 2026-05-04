@@ -2,6 +2,7 @@ package local.sport.Controllers
 
 import com.sun.net.httpserver.HttpsServer
 import local.sport.Models.Event
+import local.sport.Repository.EventRepository
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -13,14 +14,12 @@ import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.ResponseStatus
 
 @Controller
-class EventController {
-
-    val events: ArrayList<Event> = arrayListOf()
+class EventController (private val eventRepository: EventRepository){
 
     @GetMapping("/events")
     @ResponseBody
     fun getEvents(): String{
-        return "Events: ${events.joinToString(",")}"
+        return "Events: ${eventRepository.getAllEvents()}"
     }
 
     @GetMapping("/events/{id}")
@@ -40,7 +39,7 @@ class EventController {
     fun addEvent(name: String /*Query Parameter: ?name=Jonas*/ ){
         var event = Event()
         event.name = name
-        events.add(event)
+        eventRepository.save(event)
     }
 
     @PutMapping("/events/{id}")
