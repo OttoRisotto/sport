@@ -1,4 +1,4 @@
-package local.sport.HTTP
+package local.sport.xHTTP
 
 import java.net.URI
 import java.net.http.HttpClient
