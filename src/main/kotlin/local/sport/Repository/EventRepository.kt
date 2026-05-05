@@ -20,7 +20,7 @@ interface EventRepository: CrudRepository<Event, UUID> {
     @Query("select e from Event e")
     fun getAllEvents(): List<Event>
 
-    @Query("select e from Event e where e.open == true")
+    @Query("select e from Event e where e.open = true")
     fun getAllOpen(): List<Event>
 
     @Query("select e from Event e where e.open = true order by e.createdAt asc")

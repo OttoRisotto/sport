@@ -14,6 +14,6 @@ class Event {
     var createdAt: Date = Date()
 
     override fun toString(): String {
-        return "Treffen($name, $id, open: $open, created: $createdAt)"
+        return "Event ($name, $id, open: $open, created: ${createdAt.time})"
     }
 }
