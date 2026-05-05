@@ -3,6 +3,7 @@ package local.sport.Repository
 import local.sport.Models.Event
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.CrudRepository
+import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
 import java.util.UUID
 
@@ -17,14 +18,17 @@ interface EventRepository: CrudRepository<Event, UUID> {
     */
 
     @Query("select e from Event e")
-    fun getAllEvents()
+    fun getAllEvents(): List<Event>
 
     @Query("select e from Event e where e.open == true")
     fun getAllOpen(): List<Event>
 
-    @Query("select e from Event e where e.open == true order by e.createdAt asc")
-    fun getAllOpenOorderedByCreateeAtAsc()
+    @Query("select e from Event e where e.open = true order by e.createdAt asc")
+    fun getAllOpenOrderedByCreateAtAsc():List<Event>
 
+    @Query("select e from Event e where e.id = :idParam")
+    fun getEventByIdOrNull(@Param("idParam") idParam: UUID): Event?
+
+    @Query("select e from Event e where e.open = true")
     fun findEventByOpenTrue(): List<Event>
-
 }
