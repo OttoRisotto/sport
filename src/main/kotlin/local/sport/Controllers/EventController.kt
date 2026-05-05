@@ -22,7 +22,7 @@ class EventController (private val repo: EventRepository){
     @ResponseBody
     fun getEvents(): String{
         val events = repo.getAllEvents()
-        return "Events: \n${ events.joinToString(",\n ") }"
+        return "Events: \n\n${ events.joinToString(",\n\n ") }"
     }
 
     @GetMapping("/events/{id}")
@@ -40,7 +40,6 @@ class EventController (private val repo: EventRepository){
     @PostMapping("/events")
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
-
     fun addEvent(name: String /*Query Parameter: ?name=Jonas*/ ){
         val event = Event()
         event.name = name
