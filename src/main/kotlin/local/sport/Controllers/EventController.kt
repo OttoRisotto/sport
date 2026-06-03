@@ -2,6 +2,7 @@ package local.sport.Controllers
 
 import com.sun.net.httpserver.HttpsServer
 import local.sport.Models.Event
+import local.sport.Repository.EventRepository
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -11,57 +12,63 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.ResponseStatus
+import org.springframework.web.client.HttpStatusCodeException
+import org.springframework.web.server.ResponseStatusException
+import java.util.UUID
 
-@Controller
-class EventController {
-
-    val events: ArrayList<Event> = arrayListOf()
+@Controller //definierter Endpunkt dieses Programms für HTTP-Requests
+class EventController (private val repo: EventRepository){
 
     @GetMapping("/events")
     @ResponseBody
     fun getEvents(): String{
-        return "Events: \n${events.joinToString(",\n")}\n"
+        val events = repo.getAllEvents()
+        return "Events: \n\n${ events.joinToString(",\n\n ") }"
     }
 
     @GetMapping("/events/{id}")
     @ResponseBody
-    fun getEvent(@PathVariable("id") id: String): String{
-        for (event in events){
-            if((event.id.toString()) == id.toString()) {
-                return event.name
-            }
-        }
-        throw Exception("Fehler: Event mit id: $id existiert nicht")
+    fun getEvent(@PathVariable("id") id: UUID): String{
+        val event:Event = repo.getEventByIdOrNull(id)
+            ?: throw ResponseStatusException(
+                HttpStatus.NOT_FOUND,
+                "Event mit id: $id nicht gefunden"
+            )
+
+        return event.toString()
     }
 
     @PostMapping("/events")
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
     fun addEvent(name: String /*Query Parameter: ?name=Jonas*/ ){
-        var event = Event()
+        val event = Event()
         event.name = name
-        events.add(event)
+        repo.save(event)
     }
 
     @PutMapping("/events/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun updateEventByID(@PathVariable("id") id: String, name: String){
-        for(event in events){
-            if(event.id.toString() == id){
-                event.name = name
-            }
-        }
+    fun updateEventByID(@PathVariable("id") id: UUID, newName: String){
+        val event: Event = repo.getEventByIdOrNull(id)
+            ?: throw ResponseStatusException(
+                HttpStatus.NOT_FOUND,
+                "Event mit id $id nicht gefunden"
+            )
+
+        event.name = newName
+        repo.save(event)
     }
+
     @DeleteMapping("/events/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun deleteEvent(@PathVariable("id") id:String){
-        for (event in events){
-            if (event.id.toString() == id){
-                events.remove(event)
-                return
-            }
-        }
-        throw Exception("Fehler: Es existiert kein Event mit der ID: $id")
+    fun deleteEvent(@PathVariable("id") id: UUID){
+        val event: Event = repo.getEventByIdOrNull(id)
+            ?: throw ResponseStatusException(
+                HttpStatus.NOT_FOUND,
+                "Event mit $id nicht gefunden"
+            )
+        repo.delete(event)
     }
 }
 
