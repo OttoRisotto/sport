@@ -15,7 +15,7 @@ import org.springframework.web.client.HttpStatusCodeException
 import org.springframework.web.server.ResponseStatusException
 import java.util.UUID
 
-@Controller
+@Controller //definierter Endpunkt dieses Programms für HTTP-Requests
 class EventController (private val repo: EventRepository){
 
     @GetMapping("/events")
