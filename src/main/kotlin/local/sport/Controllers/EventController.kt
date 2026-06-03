@@ -20,7 +20,7 @@ class EventController {
     @GetMapping("/events")
     @ResponseBody
     fun getEvents(): String{
-        return "Events: ${events.joinToString(",")}"
+        return "Events: \n${events.joinToString(",\n")}\n"
     }
 
     @GetMapping("/events/{id}")

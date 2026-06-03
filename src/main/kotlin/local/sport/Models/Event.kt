@@ -7,6 +7,6 @@ class Event {
     var name: String = ""
 
     override fun toString(): String {
-        return "Treffen($name, $id)"
+        return "$name($id)"
     }
 }
