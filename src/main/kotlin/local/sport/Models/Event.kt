@@ -2,7 +2,8 @@ package local.sport.Models
 
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
-import java.util.Date
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.UUID
 
 @Entity
@@ -11,9 +12,16 @@ class Event {
     val id: UUID = UUID.randomUUID()
     var name: String = ""
     var open: Boolean = false
-    var createdAt: Date = Date()
+    var createdAt: LocalDateTime= LocalDateTime.now()
 
     override fun toString(): String {
-        return "$name($id, open: $open, created: ${createdAt})"
+        var openText="is open"
+        if (!open){
+            openText="is closed"
+        }
+        val formatter= DateTimeFormatter.ofPattern("dd.MM.yy HH:mm")
+        val formattedCreatedAt=createdAt.format(formatter)
+
+        return "$name($id, $openText, created: $formattedCreatedAt)"
     }
 }
