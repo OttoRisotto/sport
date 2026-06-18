@@ -20,8 +20,13 @@ class CommentServImpl(private val cRepo: CommentRepo, private val eServ: EventSe
         return cRepo.getCommentsByEvent(event)
     }
 
-    override fun saveComment(content: String, eventId: UUID) {
-        val comment = Comment()
+    override fun updateComment(content: String, eId: UUID, cId: UUID) {
+        val comment = getCommentById(cId)
+        saveComment(content, eId)
+    }
+
+    override fun saveComment(content: String, eventId: UUID, comment: Comment) {
+        val comment = comment
         comment.content = content
         comment.event = eServ.getEventByID(eventId)
         cRepo.save(comment)

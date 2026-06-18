@@ -7,6 +7,7 @@ import java.util.UUID
 interface CommentService {
     fun getCommentsByEventId(eventId: UUID): List<Comment>
     fun getCommentById(id: UUID): Comment
-    fun saveComment(content: String, eventId: UUID)
+    fun updateComment(content: String, eId: UUID, cId: UUID)
+    fun saveComment(content: String, eventId: UUID, comment: Comment = Comment())
     fun deleteComment(id: UUID)
 }
