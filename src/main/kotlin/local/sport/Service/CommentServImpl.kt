@@ -3,28 +3,31 @@ package local.sport.Service
 import local.sport.Models.Comment
 import local.sport.Models.Event
 import local.sport.Repository.CommentRepo
+import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
+import org.springframework.web.server.ResponseStatusException
 import java.util.UUID
 
 @Service
-class CommentServImpl(private val repo: CommentRepo) : CommentService{
+class CommentServImpl(private val cRepo: CommentRepo, private val eServ: EventService) : CommentService{
 
-    override fun getAllComments(): List<Comment> {
-        return repo.getAllComments()
+    override fun getCommentById(id: UUID): Comment {
+        return cRepo.getCommentById(id) ?: throw ResponseStatusException(HttpStatus.BAD_REQUEST, "User with id $id Not found")
     }
 
-    override fun getById(id: UUID): Comment {
-        return repo.findCommentById(id)
+    override fun getCommentsByEventId(eventId: UUID): List<Comment> {
+        val event = eServ.getEventByID(eventId)
+        return cRepo.getCommentsByEvent(event)
     }
 
-    override fun saveComment(content: String) {
+    override fun saveComment(content: String, eventId: UUID) {
         val comment = Comment()
         comment.content = content
-        repo.save(comment)
+        comment.event = eServ.getEventByID(eventId)
+        cRepo.save(comment)
     }
 
     override fun deleteComment(id: UUID) {
-        val comment = getById(id)
-        repo.delete(comment)
+        cRepo.deleteById(id)
     }
 }

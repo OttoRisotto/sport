@@ -5,10 +5,10 @@ import java.util.UUID
 
 interface EventService {
 
-    fun getAll(): List<Event>
-    fun getAll(open: Boolean): List<Event>
-    fun getByID(id: UUID): Event?
+    fun getAllEvents(): List<Event>
+    fun getAllEvents(open: Boolean): List<Event>
+    fun getEventByID(id: UUID): Event
 
-    fun save(event: Event)
-    fun delete(id:UUID)
+    fun saveEvent(event: Event)
+    fun deleteEvent(id:UUID)
 }

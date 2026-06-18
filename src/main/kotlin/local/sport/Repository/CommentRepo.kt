@@ -12,7 +12,10 @@ interface CommentRepo: CrudRepository<Comment, UUID>{
 
     @Query("SELECT c FROM Comment c")
     fun getAllComments(): List<Comment>
-    fun findCommentById(id: UUID): Comment
-    fun getCommentById(id: UUID): MutableList<Comment>
+
+    @Query("SELECT c FROM Comment c WHERE c.event = :event")
+    fun getCommentsByEvent(event: Event): List<Comment>
+
+    fun getCommentById(id: UUID): Comment?
 
 }

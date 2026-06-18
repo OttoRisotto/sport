@@ -5,8 +5,8 @@ import local.sport.Models.Event
 import java.util.UUID
 
 interface CommentService {
-    fun getAllComments(): List<Comment>
-    fun getById(id: UUID): Comment
-    fun saveComment(content: String)
+    fun getCommentsByEventId(eventId: UUID): List<Comment>
+    fun getCommentById(id: UUID): Comment
+    fun saveComment(content: String, eventId: UUID)
     fun deleteComment(id: UUID)
 }

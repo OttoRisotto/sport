@@ -29,6 +29,5 @@ interface EventRepository: CrudRepository<Event, UUID> {
 
     //SQL-Query wird automatisch erstellt
     fun findEventsByOpenTrue(): List<Event>
-    fun findEventByOpenAndComment(open: Boolean, comment: Comment): List<Event>
     fun findEventsByOpenFalse(): List<Event>
 }
