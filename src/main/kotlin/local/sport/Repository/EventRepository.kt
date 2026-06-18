@@ -1,5 +1,6 @@
 package local.sport.Repository
 
+import local.sport.Models.Comment
 import local.sport.Models.Event
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.CrudRepository
@@ -28,5 +29,6 @@ interface EventRepository: CrudRepository<Event, UUID> {
 
     //SQL-Query wird automatisch erstellt
     fun findEventsByOpenTrue(): List<Event>
+    fun findEventByOpenAndComment(open: Boolean, comment: Comment): List<Event>
     fun findEventsByOpenFalse(): List<Event>
 }

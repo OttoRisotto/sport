@@ -2,6 +2,7 @@ package local.sport.Models
 
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
+import jakarta.persistence.ManyToOne
 import java.util.UUID
 
 @Entity

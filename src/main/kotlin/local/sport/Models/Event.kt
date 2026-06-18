@@ -2,6 +2,7 @@ package local.sport.Models
 
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
+import jakarta.persistence.ManyToOne
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.UUID
@@ -13,6 +14,9 @@ class Event {
     var name: String = ""
     var open: Boolean = false
     var createdAt: LocalDateTime= LocalDateTime.now()
+
+    @ManyToOne
+    var comment: Comment? = null
 
     override fun toString(): String {
         var openText="is open"

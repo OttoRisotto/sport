@@ -11,5 +11,4 @@ interface EventService {
 
     fun save(event: Event)
     fun delete(id:UUID)
-
 }

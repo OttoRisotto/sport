@@ -36,12 +36,10 @@ class EventController (private val service: EventService){
                 HttpStatus.NOT_FOUND,
                 "Event mit id: $id nicht gefunden"
             )
-
         return event.toString()
     }
 
     @PostMapping("/events")
-    @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
     fun addEvent(name: String /*Query Parameter: ?name=Jonas*/ ){
         val event = Event()
