@@ -5,6 +5,7 @@ import local.sport.Models.Comment
 import local.sport.Models.Event
 import local.sport.Service.CommentService
 import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -15,10 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.ResponseStatus
+import org.springframework.web.bind.annotation.RestController
 import java.util.UUID
 
-@Controller
-@RequestMapping("/events/{eventId}")
+@RestController
+@RequestMapping("/events/{eventId}", produces = [MediaType.APPLICATION_JSON_VALUE])
 class CommentController(private val serv: CommentService) {
 
     @PostMapping("/comments")
@@ -28,13 +30,11 @@ class CommentController(private val serv: CommentService) {
     }
 
     @GetMapping("/comments")
-    @ResponseBody
     fun getComments(@PathVariable eventId: UUID):List<Comment>{
         return serv.getCommentsByEventId(eventId)
     }
 
     @GetMapping("/comments/{commentId}")
-    @ResponseBody
     fun getComment(@PathVariable eventId: UUID, @PathVariable commentId: UUID): Comment{
         return serv.getCommentById(commentId)
     }

@@ -1,32 +1,36 @@
 package local.sport.Controllers
 
 import local.sport.Models.Event
+import local.sport.Service.CommentService
 import local.sport.Service.EventService
 import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.ResponseStatus
+import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.server.ResponseStatusException
 import java.util.UUID
 
-@Controller //definierter Endpunkt dieses Programms für HTTP-Requests
+
+@RestController //definierter Endpunkt dieses Programms für HTTP-Requests
+@RequestMapping( produces = [MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE] )
 class EventController (private val service: EventService){
 
     @GetMapping("/events")
-    @ResponseBody
     fun getEvents(): String{
         val events = service.getAllEvents()
         return "Events: \n\n${ events.joinToString(",\n\n ") }"
     }
 
     @GetMapping("/events/{id}")
-    @ResponseBody
     fun getEvent(@PathVariable("id") id: UUID): String{
         val event:Event = service.getEventByID(id)
 
