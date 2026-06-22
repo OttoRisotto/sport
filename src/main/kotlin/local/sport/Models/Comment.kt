@@ -12,7 +12,7 @@ class Comment {
     var content = ""
 
     @ManyToOne // viele Comments auf ein Event
-    var event: Event? = null
+    var event: Event = Event()
 
     override fun toString(): String {
         return "$content($id)"

@@ -2,7 +2,7 @@
 <@base.layout>
     <ul>
         <#list events as event>
-            <li>${event.name}</li>
+
         </#list>
     </ul>
     <form action="/events" method ="post">

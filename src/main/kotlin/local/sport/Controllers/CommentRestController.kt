@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController
 import java.util.UUID
 
 @RestController
-@RequestMapping("/events/{eventId}", produces = [MediaType.APPLICATION_JSON_VALUE])
+@RequestMapping("/api/events/{eventId}", produces = [MediaType.APPLICATION_JSON_VALUE])
 class CommentRestController(private val serv: CommentService) {
 
     @PostMapping("/comments")
@@ -32,7 +32,7 @@ class CommentRestController(private val serv: CommentService) {
 
     @GetMapping("/comments/{commentId}")
     fun getComment(@PathVariable eventId: UUID, @PathVariable commentId: UUID): Comment{
-        return serv.getCommentById(commentId)
+        return serv.getComment(commentId, eventId)
     }
 
     @PatchMapping("/comments/{commentId}")
@@ -41,7 +41,7 @@ class CommentRestController(private val serv: CommentService) {
             @PathVariable eventId: UUID,
             @PathVariable commentId: UUID,
             @RequestParam content: String){
-        val comment = serv.getCommentById(commentId)
+        val comment = serv.getComment(commentId, eventId)
         comment.content = content
         serv.saveComment(content, eventId)
     }

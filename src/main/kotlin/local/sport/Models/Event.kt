@@ -12,20 +12,12 @@ class Event {
     @Id
     val id: UUID = UUID.randomUUID()
     var name: String = ""
-    var open: Boolean = false
     var createdAt: LocalDateTime= LocalDateTime.now()
 
-    @ManyToOne
-    var comment: Comment? = null
-
     override fun toString(): String {
-        var openText="is open"
-        if (!open){
-            openText="is closed"
-        }
         val formatter= DateTimeFormatter.ofPattern("dd.MM.yy HH:mm")
         val formattedCreatedAt=createdAt.format(formatter)
 
-        return "$name($id, $openText, created: $formattedCreatedAt)"
+        return "$name($id, created: $formattedCreatedAt)"
     }
 }

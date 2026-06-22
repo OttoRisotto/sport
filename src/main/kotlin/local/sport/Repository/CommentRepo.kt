@@ -16,6 +16,6 @@ interface CommentRepo: CrudRepository<Comment, UUID>{
     @Query("SELECT c FROM Comment c WHERE c.event = :event")
     fun getCommentsByEvent(event: Event): List<Comment>
 
-    fun getCommentById(id: UUID): Comment?
-
+    @Query("SELECT c FROM Comment c WHERE c.id = :cId")
+    fun getCommentById(cId: UUID): Comment?
 }

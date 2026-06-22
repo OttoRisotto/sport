@@ -20,7 +20,7 @@ import java.util.UUID
 @RequestMapping( produces = [MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE] )
 class EventsRestController (private val service: EventService){
 
-    @GetMapping("/events")
+    @GetMapping("/api/events")
     fun getEvents(): List<Event>{
         val events = service.getAllEvents()
         return events
