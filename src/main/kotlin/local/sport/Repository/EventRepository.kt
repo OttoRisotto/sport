@@ -21,13 +21,8 @@ interface EventRepository: CrudRepository<Event, UUID> {
     @Query("select e from Event e")
     fun getAllEvents(): List<Event>
 
-    @Query("select e from Event e where e.open = true order by e.createdAt asc")
-    fun getAllOpenOrderedByCreateAtAsc():List<Event>
-
     @Query("select e from Event e where e.id = :idParam")
     fun getEventByIdOrNull(@Param("idParam") idParam: UUID): Event?
 
-    //SQL-Query wird automatisch erstellt
-    fun findEventsByOpenTrue(): List<Event>
-    fun findEventsByOpenFalse(): List<Event>
+    //SQL-Query wird automatisch erstellt, wenn man die @Query Zeile weglässt
 }

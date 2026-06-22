@@ -14,14 +14,6 @@ class EventsServiceImpl(private val repo: EventRepository) : EventService{
        return repo.getAllEvents()
     }
 
-    override fun getAllEvents(open: Boolean): List<Event> {
-        return if(open){
-            repo.findEventsByOpenTrue()
-        }else{
-            repo.findEventsByOpenFalse()
-        }
-    }
-
     override fun getEventByID(id: UUID): Event {
         return repo.getEventByIdOrNull(id)?: throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Event mit id $id nicht gefunden")
     }

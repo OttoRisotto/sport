@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestParam
 
 @Controller
 class EventsController (private val serv: EventService){
@@ -17,7 +18,7 @@ class EventsController (private val serv: EventService){
     }
 
     @PostMapping("/events")
-    fun saveEvents(name: String): String{
+    fun saveEvents(@RequestParam name: String): String{
         val event: Event = Event()
         event.name = name
         serv.saveEvent(event)
