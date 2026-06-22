@@ -15,12 +15,11 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import java.util.UUID
 
-
 @RestController //definierter Endpunkt dieses Programms für HTTP-Requests
-@RequestMapping( produces = [MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE] )
+@RequestMapping("/api/" , produces = [MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE] )
 class EventsRestController (private val service: EventService){
 
-    @GetMapping("/api/events")
+    @GetMapping("/events")
     fun getEvents(): List<Event>{
         val events = service.getAllEvents()
         return events
