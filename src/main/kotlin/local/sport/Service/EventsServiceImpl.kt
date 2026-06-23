@@ -14,6 +14,15 @@ class EventsServiceImpl(private val repo: EventRepository) : EventService{
        return repo.getAllEvents()
     }
 
+    override fun updateEvent(id: UUID, name:String?) {
+        val event = getEventByID(id)
+        if (name == ""){
+
+        }
+        if(name != null && name != "") {event.name = name}
+        repo.save(event)
+    }
+
     override fun getEventByID(id: UUID): Event {
         return repo.getEventByIdOrNull(id)?: throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Event mit id $id nicht gefunden")
     }

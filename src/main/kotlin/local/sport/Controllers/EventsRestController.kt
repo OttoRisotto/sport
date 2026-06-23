@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController
 import java.util.UUID
 
 @RestController //definierter Endpunkt dieses Programms für HTTP-Requests
-@RequestMapping("/api/" , produces = [MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE] )
+@RequestMapping("/api/", produces = [MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE] )
 class EventsRestController (private val service: EventService){
 
     @GetMapping("/events")
@@ -28,7 +28,6 @@ class EventsRestController (private val service: EventService){
     @GetMapping("/events/{id}")
     fun getEvent(@PathVariable("id") id: UUID): String{
         val event:Event = service.getEventByID(id)
-
         return event.toString()
     }
 

@@ -1,8 +1,8 @@
-<#import "../layout.ftlh" as base>
-<@base.layout>
+<#import "../layout.ftlh" as base> <#-- Alias base für ../layout.ftlh -->
+<@base.layout> <#-- layout hier: Name des Makros in base -->
     <ul>
         <#list events as event>
-            <li>${event.name}</li>
+            <li><a href="/events/${event.id}">${event.name}, ${event.id}</a></li>
         </#list>
     </ul>
     <form action="/events" method ="post">

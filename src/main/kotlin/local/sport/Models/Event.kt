@@ -9,15 +9,18 @@ import java.util.UUID
 
 @Entity
 class Event {
+    //@Entity versucht jede Eigenschaft innerhalb der @Entity-Klasse als Tabellenspalte zu speichern
     @Id
     val id: UUID = UUID.randomUUID()
     var name: String = ""
-    var createdAt: LocalDateTime= LocalDateTime.now()
+
+    @Transient
+    private var createdAtRaw: LocalDateTime= LocalDateTime.now()
+    @Transient
+    val formatter = DateTimeFormatter.ofPattern("dd.MM.yy HH:mm")
+    val createdAt=createdAtRaw.format(formatter)
 
     override fun toString(): String {
-        val formatter= DateTimeFormatter.ofPattern("dd.MM.yy HH:mm")
-        val formattedCreatedAt=createdAt.format(formatter)
-
-        return "$name($id, created: $formattedCreatedAt)"
+        return "$name($id, created: $createdAt)"
     }
 }
